@@ -13,6 +13,10 @@ from schemas import (
     CategoryStatsOut
 )
 
+from fastapi.middleware.cors import CORSMiddleware
+
+
+
 # --- Инициализация БД ---
 Base.metadata.create_all(bind=engine)
 
@@ -20,6 +24,13 @@ app = FastAPI(
     title="News Portal API",
     description="ЛР: REST API новостного портала (CRUD, фильтр, поиск, сортировка, пагинация, валидация, агрегация, Swagger/ReDoc)",
     version="1.0.0",
+)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # --- Зависимости ---
